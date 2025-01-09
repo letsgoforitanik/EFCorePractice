@@ -1,5 +1,6 @@
 using EFCore.API.Data;
 using EFCore.API.Models;
+using EFCore.API.QueryParameters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,6 +38,24 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
         var movie = await db.Movies.SingleOrDefaultAsync(movie => movie.Id == id);
 
         return movie is null ? NotFound() : Ok(movie);
+    }
+
+    [HttpGet("filtered")]
+    public async Task<IActionResult> GetMoviesByQuery([FromQuery] MovieQueryParameters parameters)
+    {
+        IQueryable<Movie> query = db.Movies;
+
+        // Fluent Syntax
+        if (parameters.Year.HasValue) query = query.Where(movie => movie.ReleaseDate.Year == parameters.Year);
+
+        /*
+         // Query Syntax
+         if (parameters.Year.HasValue)
+            query = from movie in query where movie.ReleaseDate.Year == parameters.Year select movie;
+        */
+
+        var filteredMovies = await query.ToListAsync();
+        return Ok(filteredMovies);
     }
 
     [HttpPost]
