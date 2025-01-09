@@ -35,7 +35,7 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
         // This one ensures that only one data exists with the given criteria
         // If more than one matches are found, it throws exception
         // Thus the generated SQL is different, it fetches TOP(2) instead of TOP(1)
-        var movie = await db.Movies.SingleOrDefaultAsync(movie => movie.Id == id);
+        var movie = await db.Movies.SingleOrDefaultAsync(movie => movie.Identifier == id);
 
         return movie is null ? NotFound() : Ok(movie);
     }
@@ -84,7 +84,7 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
         await db.Movies.AddAsync(movie);
         await db.SaveChangesAsync();
 
-        return CreatedAtAction(nameof(GetMovie), new { id = movie.Id }, movie);
+        return CreatedAtAction(nameof(GetMovie), new { id = movie.Identifier }, movie);
     }
 
     [HttpPut("{id:int}")]
@@ -137,10 +137,10 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
         */
 
         // Fourth Way ========================
-        var movieExists = await db.Movies.AnyAsync(m => m.Id == id);
+        var movieExists = await db.Movies.AnyAsync(m => m.Identifier == id);
         if (!movieExists) return NotFound();
 
-        movie.Id = id;
+        movie.Identifier = id;
 
         db.Movies.Update(movie);
         await db.SaveChangesAsync();
@@ -200,9 +200,9 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
 
         // Sixth Way ====
         // Without change tracker
-        var movieExists = await db.Movies.AnyAsync(movie => movie.Id == id);
+        var movieExists = await db.Movies.AnyAsync(movie => movie.Identifier == id);
         if (!movieExists) return NotFound();
-        await db.Movies.Where(movie => movie.Id == id).ExecuteDeleteAsync();
+        await db.Movies.Where(movie => movie.Identifier == id).ExecuteDeleteAsync();
         return NoContent();
     }
 }
