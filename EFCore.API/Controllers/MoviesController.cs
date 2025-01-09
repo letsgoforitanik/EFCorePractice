@@ -58,6 +58,17 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
         return Ok(filteredMovies);
     }
 
+    [HttpGet("titles/{year:int}")]
+    public async Task<IActionResult> GetMovieTitlesByYear(int year)
+    {
+        var movieNames = await db.Movies
+            .Where(movie => movie.ReleaseDate.Year == year)
+            .Select(movie => new { movie.Title })
+            .ToListAsync();
+
+        return Ok(movieNames);
+    }
+
     [HttpPost]
     public async Task<IActionResult> CreateMovie(Movie movie)
     {
