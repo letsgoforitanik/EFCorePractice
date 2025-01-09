@@ -1,3 +1,4 @@
+using System.Reflection;
 using EFCore.API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,22 +8,7 @@ public class MoviesDbContext(DbContextOptions<MoviesDbContext> options) : DbCont
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Movie>()
-            .ToTable("Pictures")
-            .HasKey(movie => movie.Identifier);
-
-        modelBuilder.Entity<Movie>().Property(movie => movie.Title)
-            .HasColumnType("varchar")
-            .HasMaxLength(128)
-            .IsRequired();
-
-        modelBuilder.Entity<Movie>().Property(movie => movie.ReleaseDate)
-            .HasColumnType("date");
-
-        modelBuilder.Entity<Movie>().Property(movie => movie.Synopsis)
-            .HasColumnName("Plot")
-            .HasColumnType("varchar(max)");
-
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(modelBuilder);
     }
 
