@@ -1,4 +1,5 @@
 using EFCore.API.Data;
+using EFCore.API.Dto;
 using EFCore.API.Models;
 using EFCore.API.QueryParameters;
 using Microsoft.AspNetCore.Mvc;
@@ -59,21 +60,71 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateMovie(Movie movie)
+    public async Task<IActionResult> CreateMovie(MovieInsertDto dto)
     {
-        // First Way
-        //db.Movies.Attach(movie); // Adds to change tracker
-        //await db.SaveChangesAsync();
 
-        // Second Way
-        // db.Entry(movie).State = EntityState.Added;
-        // await db.SaveChangesAsync();
+        // One-to-many relationship insert
+        // What if genreId is not present in Movie 
+        // Approach 1
 
-        // Third Way
-        await db.Movies.AddAsync(movie);
+        /*
+        var genre = await db.Genres.FindAsync(dto.GenreId);
+
+        if (genre is null) return NotFound("Genre not found");
+
+        var newMovie = new Movie
+        {
+            ReleaseDate = dto.ReleaseDate,
+            Genre = genre,
+            Synopsis = dto.Synopsis,
+            Title = dto.Title
+        };
+
+        await db.Movies.AddAsync(newMovie);
+
+        var movieEntityState = db.Entry(newMovie).State; // EntityState.Added (has to be added)
+        var genreEntityState = db.Entry(newMovie.Genre).State; // EntityState.Unchanged (nothing needs to be done) 
+
         await db.SaveChangesAsync();
 
-        return CreatedAtAction(nameof(GetMovie), new { id = movie.Id }, movie);
+        return CreatedAtAction(nameof(GetMovie), new { id = newMovie.Id }, newMovie);
+        
+        */
+
+        // What if GenreId isn't present in Movie
+        // Approach 2
+        /*
+        var genre = new Genre { Id = dto.GenreId };
+        db.Entry(genre).State = EntityState.Unchanged;
+
+        var newMovie = new Movie
+        {
+            Title = dto.Title,
+            ReleaseDate = dto.ReleaseDate,
+            Synopsis = dto.Synopsis,
+            Genre = genre
+        };
+
+        await db.Movies.AddAsync(newMovie);
+        await db.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(GetMovie), new { id = newMovie.Id }, newMovie);
+        */
+
+        // What if GenreId is present in Movie
+        var newMovie = new Movie
+        {
+            Title = dto.Title,
+            ReleaseDate = dto.ReleaseDate,
+            Synopsis = dto.Synopsis,
+            GenreId = dto.GenreId
+        };
+
+        await db.Movies.AddAsync(newMovie);
+        await db.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(GetMovie), new { id = newMovie.Id }, newMovie);
+
     }
 
     [HttpPut("{id:int}")]
