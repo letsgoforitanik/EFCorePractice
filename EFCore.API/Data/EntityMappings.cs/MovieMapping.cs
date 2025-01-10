@@ -1,3 +1,4 @@
+using EFCore.API.Data.ValueConverters;
 using EFCore.API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -21,8 +22,13 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
         // EF Core has a DateTimeToStringConverter, which is 
         // used in this case.
         // Read : https://learn.microsoft.com/en-us/ef/core/modeling/value-conversions?tabs=data-annotations
+
+
+        // Now changed it from char(23) to char(8)
+        // Now it's a total different game
         builder.Property(movie => movie.ReleaseDate)
-            .HasColumnType("char(23)");
+            .HasColumnType("char(8)")
+            .HasConversion(new DateTimeToChar8Converter());
 
         /*
         // Foreign Key
