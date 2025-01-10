@@ -30,5 +30,15 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
             .HasPrincipalKey(genre => genre.Id)
             .HasForeignKey(movie => movie.MainGenreId);
 
+        // Seeding - data that should be present always - needs migration
+        builder.HasData(new Movie
+        {
+            Identifier = 1,
+            ReleaseDate = new DateTime(1999, 9, 10),
+            Synopsis = "Ed Norton and Brad Pitt have a couple of fist fights with each other",
+            Title = "Fight Club",
+            MainGenreId = 1
+        });
+
     }
 }
