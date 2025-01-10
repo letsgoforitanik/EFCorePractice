@@ -8,7 +8,8 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
 {
     public void Configure(EntityTypeBuilder<Movie> builder)
     {
-        builder.ToTable("Pictures")
+        builder
+            .ToTable("Pictures")
             .HasKey(movie => movie.Identifier);
 
         builder.Property(movie => movie.Title)
@@ -22,5 +23,12 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
         builder.Property(movie => movie.Synopsis)
             .HasColumnName("Plot")
             .HasColumnType("varchar(max)");
+
+        builder
+            .HasOne(movie => movie.Genre)
+            .WithMany(genre => genre.Movies)
+            .HasPrincipalKey(genre => genre.Id)
+            .HasForeignKey(movie => movie.MainGenreId);
+
     }
 }

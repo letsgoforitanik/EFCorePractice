@@ -22,6 +22,23 @@ namespace EFCore.API.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("EFCore.API.Models.Genre", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Genres");
+                });
+
             modelBuilder.Entity("EFCore.API.Models.Movie", b =>
                 {
                     b.Property<int>("Identifier")
@@ -29,6 +46,9 @@ namespace EFCore.API.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Identifier"));
+
+                    b.Property<int>("MainGenreId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("date");
@@ -44,7 +64,25 @@ namespace EFCore.API.Migrations
 
                     b.HasKey("Identifier");
 
+                    b.HasIndex("MainGenreId");
+
                     b.ToTable("Pictures", (string)null);
+                });
+
+            modelBuilder.Entity("EFCore.API.Models.Movie", b =>
+                {
+                    b.HasOne("EFCore.API.Models.Genre", "Genre")
+                        .WithMany("Movies")
+                        .HasForeignKey("MainGenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Genre");
+                });
+
+            modelBuilder.Entity("EFCore.API.Models.Genre", b =>
+                {
+                    b.Navigation("Movies");
                 });
 #pragma warning restore 612, 618
         }

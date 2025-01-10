@@ -13,4 +13,5 @@ public class MoviesDbContext(DbContextOptions<MoviesDbContext> options) : DbCont
     }
 
     public required DbSet<Movie> Movies { get; init; }
+    public required DbSet<Genre> Genres { get; init; }
 }
