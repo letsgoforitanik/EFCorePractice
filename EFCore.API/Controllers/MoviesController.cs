@@ -38,7 +38,12 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
         // This one ensures that only one data exists with the given criteria
         // If more than one matches are found, it throws exception
         // Thus the generated SQL is different, it fetches TOP(2) instead of TOP(1)
-        var movie = await db.Movies.SingleOrDefaultAsync(movie => movie.Id == id);
+
+
+        // Eager Loading of Genre
+        var movie = await db.Movies
+            .Include(movie => movie.Genre)
+            .SingleOrDefaultAsync(movie => movie.Id == id);
 
         return movie is null ? NotFound() : Ok(movie);
     }
