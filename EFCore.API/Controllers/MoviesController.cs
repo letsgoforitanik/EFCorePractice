@@ -15,7 +15,9 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
     public async Task<IActionResult> GetAllMovies()
     {
         // Get all movies
-        var movies = await db.Movies.ToListAsync();
+
+        // Eager Loading of Genre
+        var movies = await db.Movies.Include(movie => movie.Genre).ToListAsync();
         return Ok(movies);
     }
 

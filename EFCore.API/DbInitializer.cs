@@ -21,21 +21,49 @@ public static class DbInitializer
     {
         if (!db.Genres.Any())
         {
-            db.Genres.Add(new Genre { Name = "Drama" });
+            db.Genres.AddRange(
+                new Genre { Name = "Drama" },
+                new Genre { Name = "Action" },
+                new Genre { Name = "Sci-Fi" }
+            );
+
             db.SaveChanges();
         }
 
         if (!db.Movies.Any())
         {
-            var genre = db.Genres.FirstOrDefault()!;
+            var genres = db.Genres.ToList();
 
-            db.Movies.Add(new Movie
-            {
-                ReleaseDate = new DateTime(1999, 9, 10),
-                Synopsis = "Ed Norton and Brad Pitt have a couple of fist fights with each other",
-                Title = "Fight Club",
-                GenreId = genre.Id,
-            });
+            db.Movies.AddRange(
+                new Movie
+                {
+                    Title = "Fight Club",
+                    GenreId = genres[0].Id,
+                    ReleaseDate = new DateTime(1999, 9, 10),
+                    Synopsis = "Ed Norton and Brad Pitt have a couple of fist fights with each other",
+                },
+                new Movie
+                {
+                    Title = "The Shawshank Redemption",
+                    GenreId = genres[0].Id,
+                    ReleaseDate = new DateTime(1994, 9, 14),
+                    Synopsis = "Two imprisoned men bond over a number of years, finding solace and eventual redemption through"
+                },
+                new Movie
+                {
+                    Title = "The Dark Knight",
+                    GenreId = genres[1].Id,
+                    ReleaseDate = new DateTime(2008, 7, 18),
+                    Synopsis = "When a menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman, James Gordon and Harvey Dent must work together to put an end"
+                },
+                new Movie
+                {
+                    Title = "Inception",
+                    GenreId = genres[2].Id,
+                    ReleaseDate = new DateTime(2010, 7, 16),
+                    Synopsis = "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a CEO"
+                }
+            );
 
             db.SaveChanges();
         }
