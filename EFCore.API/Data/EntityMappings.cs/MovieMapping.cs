@@ -28,7 +28,7 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
         // Now it's a total different game
         builder.Property(movie => movie.ReleaseDate)
             .HasColumnType("char(8)")
-            .HasConversion(new DateTimeToChar8Converter());
+            .HasConversion(ValueConverter.GetDateTimeToChar8Converter());
 
         /*
         // Foreign Key
@@ -38,7 +38,6 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
             .HasPrincipalKey(genre => genre.Id)
             .HasForeignKey(movie => movie.GenreId);
         */
-
 
     }
 }
