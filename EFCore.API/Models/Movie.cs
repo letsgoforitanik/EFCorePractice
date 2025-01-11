@@ -7,7 +7,12 @@ public class Movie
     public DateTime ReleaseDate { get; set; }
     public string? Synopsis { get; set; }
 
+    // Enums are mapped to int in Database by EFCore
+    // by default. However, we can change this behavior
+    public AgeRating AgeRating { get; set; }
+
     // Navigation Properties
     public int GenreId { get; set; }
     public Genre Genre { get; set; } = default!;
+
 }

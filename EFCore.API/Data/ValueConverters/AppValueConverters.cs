@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EFCore.API.Data.ValueConverters;
 
-public static class ValueConverter
+public static class AppValueConverters
 {
     public static ValueConverter<DateTime, string> GetDateTimeToChar8Converter()
     {

@@ -66,6 +66,13 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
         return Ok(filteredMovies);
     }
 
+    [HttpGet("by-age/{ageRating}")]
+    public async Task<IActionResult> GetMoviesByAgeRating(AgeRating ageRating)
+    {
+        var movies = await db.Movies.Where(movie => movie.AgeRating <= ageRating).ToListAsync();
+        return Ok(movies);
+    }
+
     [HttpPost]
     public async Task<IActionResult> CreateMovie(MovieInsertDto dto)
     {

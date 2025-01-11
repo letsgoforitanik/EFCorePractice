@@ -28,7 +28,14 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
         // Now it's a total different game
         builder.Property(movie => movie.ReleaseDate)
             .HasColumnType("char(8)")
-            .HasConversion(ValueConverter.GetDateTimeToChar8Converter());
+            .HasConversion(AppValueConverters.GetDateTimeToChar8Converter());
+
+        // Overriding Default, Saving Enums as string
+        // No need to make custom value-converter
+        // EFCore has built-in converter for this
+        builder.Property(movie => movie.AgeRating)
+            .HasColumnType("varchar")
+            .HasMaxLength(100);
 
         /*
         // Foreign Key
