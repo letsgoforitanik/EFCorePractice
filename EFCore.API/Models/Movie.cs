@@ -18,4 +18,7 @@ public class Movie
     // Complex Property / Compound Attribute (SQL)
     public Person Director { get; set; } = default!;
 
+    // Owned Type / Multi-valued Attribute / Weak Entity
+    public ICollection<Person> Actors { get; set; } = default!;
+
 }

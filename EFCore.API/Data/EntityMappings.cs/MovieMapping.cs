@@ -49,11 +49,13 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
         // Complex Property / Director
         // In database two fields will be created
         // Director_FirstName, Director_LastName
-        // builder.ComplexProperty(movie => movie.Director);
+        builder.ComplexProperty(movie => movie.Director);
 
 
         // Overriding default
         // Changing names of generated columns
+        /*
+
         builder.ComplexProperty(movie => movie.Director)
             .Property(director => director.FirstName)
             .HasColumnName("DirectorFirstName");
@@ -61,6 +63,16 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
         builder.ComplexProperty(movie => movie.Director)
             .Property(director => director.LastName)
             .HasColumnName("DirectorLastName");
+        
+        */
 
+        // Owned Type / Actors
+        // Weak Entity / Multi-valued Attribute
+        // In database, a seperate table will be created
+        // By default, the tableName will be class name i.e. Person
+        // But we can override that
+        // Changed Name from Person -> MovieActors
+        builder.OwnsMany(movie => movie.Actors)
+            .ToTable("MovieActors");
     }
 }
