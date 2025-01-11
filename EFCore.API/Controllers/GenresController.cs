@@ -14,7 +14,7 @@ public class GenresController(MoviesDbContext db) : ControllerBase
     public async Task<IActionResult> GetAllGenres()
     {
         var genres = await db.Genres.ToListAsync();
-        return Ok();
+        return Ok(genres);
     }
 
     [HttpGet("{id:int}")]

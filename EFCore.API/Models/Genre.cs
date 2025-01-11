@@ -4,7 +4,7 @@ namespace EFCore.API.Models;
 // One Genre can be associated with many Movies
 // However, one movie can only be associated 
 // with one Genre
-public class Genre
+public class Genre : BaseEntity
 {
     public int Id { get; set; }
     public string Name { get; set; } = default!;
