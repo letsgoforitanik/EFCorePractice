@@ -15,4 +15,7 @@ public class Movie
     public int GenreId { get; set; }
     public Genre Genre { get; set; } = default!;
 
+    // Complex Property / Compound Attribute (SQL)
+    public Person Director { get; set; } = default!;
+
 }

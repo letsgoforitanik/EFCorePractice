@@ -46,5 +46,11 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
             .HasForeignKey(movie => movie.GenreId);
         */
 
+        // Complex Property / Director
+        // In database two fields will be created
+        // Director_FirstName, Director_LastName
+        builder.ComplexProperty(movie => movie.Director);
+
+
     }
 }

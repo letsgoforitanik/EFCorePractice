@@ -41,7 +41,8 @@ public static class DbInitializer
                     GenreId = genres[0].Id,
                     ReleaseDate = new DateTime(1999, 9, 10),
                     Synopsis = "Ed Norton and Brad Pitt have a couple of fist fights with each other",
-                    AgeRating = AgeRating.Adolescent
+                    AgeRating = AgeRating.Adolescent,
+                    Director = new Person { FirstName = "David", LastName = "Fincher" }
                 },
                 new Movie
                 {
@@ -49,7 +50,8 @@ public static class DbInitializer
                     GenreId = genres[0].Id,
                     ReleaseDate = new DateTime(1994, 9, 14),
                     Synopsis = "Two imprisoned men bond over a number of years, finding solace and eventual redemption through",
-                    AgeRating = AgeRating.Adult
+                    AgeRating = AgeRating.Adult,
+                    Director = new Person { FirstName = "Frank", LastName = "Darabont" }
                 },
                 new Movie
                 {
@@ -57,7 +59,8 @@ public static class DbInitializer
                     GenreId = genres[1].Id,
                     ReleaseDate = new DateTime(2008, 7, 18),
                     Synopsis = "When a menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman, James Gordon and Harvey Dent must work together to put an end",
-                    AgeRating = AgeRating.HighSchool
+                    AgeRating = AgeRating.HighSchool,
+                    Director = new Person { FirstName = "Christopher", LastName = "Nolan" }
                 },
                 new Movie
                 {
@@ -65,7 +68,8 @@ public static class DbInitializer
                     GenreId = genres[2].Id,
                     ReleaseDate = new DateTime(2010, 7, 16),
                     Synopsis = "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a CEO",
-                    AgeRating = AgeRating.All
+                    AgeRating = AgeRating.All,
+                    Director = new Person { FirstName = "Christopher", LastName = "Nolan" }
                 }
             );
 
