@@ -49,8 +49,18 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
         // Complex Property / Director
         // In database two fields will be created
         // Director_FirstName, Director_LastName
-        builder.ComplexProperty(movie => movie.Director);
+        // builder.ComplexProperty(movie => movie.Director);
 
+
+        // Overriding default
+        // Changing names of generated columns
+        builder.ComplexProperty(movie => movie.Director)
+            .Property(director => director.FirstName)
+            .HasColumnName("DirectorFirstName");
+
+        builder.ComplexProperty(movie => movie.Director)
+            .Property(director => director.LastName)
+            .HasColumnName("DirectorLastName");
 
     }
 }
