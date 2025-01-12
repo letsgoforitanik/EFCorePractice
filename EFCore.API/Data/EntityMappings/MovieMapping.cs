@@ -2,6 +2,7 @@ using EFCore.API.Data.ValueConverters;
 using EFCore.API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Update;
 
 namespace EFCore.API.Data.EntityMappings;
 
@@ -76,7 +77,7 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
         // Director_FirstName, Director_LastName
         // NOTE - Complex Property doesn't work when using TPT
         // This is a EF bug
-
+        builder.ComplexProperty(movie => movie.Director);
 
         // Overriding default
         // Changing names of generated columns
