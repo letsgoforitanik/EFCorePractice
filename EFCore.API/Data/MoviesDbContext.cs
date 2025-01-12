@@ -11,8 +11,10 @@ public class MoviesDbContext(DbContextOptions<MoviesDbContext> options) : DbCont
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
         // TPT - Table Per Type
+        /*
         modelBuilder.Entity<CinemaMovie>().ToTable("CinemaMovies");
         modelBuilder.Entity<TelevisionMovie>().ToTable("TelevisionMovies");
+        */
 
         base.OnModelCreating(modelBuilder);
     }
