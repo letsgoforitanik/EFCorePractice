@@ -73,6 +73,13 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
         return Ok(movies);
     }
 
+    [HttpGet("by-director")]
+    public async Task<IActionResult> GetMoviesByDirector([FromQuery] Person director)
+    {
+        var movies = await db.Movies.Where(movie => movie.Director == director).ToListAsync();
+        return Ok(movies);
+    }
+
     [HttpPost]
     public async Task<IActionResult> CreateMovie(MovieInsertDto dto)
     {
