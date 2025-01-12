@@ -24,6 +24,8 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
     [HttpGet("cinema")]
     public async Task<IActionResult> GetCinemaMovies()
     {
+        // Works for TPH - Table Per Hierarchy
+        // Works for TPT - Table Per Type
         var cinemaMovies = await db.Movies.OfType<CinemaMovie>().ToListAsync();
         return Ok(cinemaMovies);
     }
@@ -31,6 +33,8 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
     [HttpGet("television")]
     public async Task<IActionResult> GetTelevisionMovies()
     {
+        // Works for TPH - Table Per Hierarchy
+        // Works for TPT - Table Per Type
         var televisionMovies = await db.Movies.OfType<TelevisionMovie>().ToListAsync();
         return Ok(televisionMovies);
     }
