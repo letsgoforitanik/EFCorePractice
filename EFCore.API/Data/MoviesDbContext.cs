@@ -9,13 +9,6 @@ public class MoviesDbContext(DbContextOptions<MoviesDbContext> options) : DbCont
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
-        // TPT - Table Per Type
-        /*
-        modelBuilder.Entity<CinemaMovie>().ToTable("CinemaMovies");
-        modelBuilder.Entity<TelevisionMovie>().ToTable("TelevisionMovies");
-        */
-
         base.OnModelCreating(modelBuilder);
     }
 

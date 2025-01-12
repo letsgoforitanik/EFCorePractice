@@ -10,12 +10,11 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
     public void Configure(EntityTypeBuilder<Movie> builder)
     {
         // TPH - Table Per Hierarchy
-        /*
         builder
+            .UseTphMappingStrategy()
             .HasDiscriminator<string>("MovieType")
             .HasValue<CinemaMovie>("Cinema")
             .HasValue<TelevisionMovie>("Television");
-        */
 
         // Global Query Filter
         // In SQL, "WHERE [m].[IsSoftDeleted] = CAST(0 AS bit)"
@@ -64,10 +63,7 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
         // NOTE - Complex Property doesn't work when using TPT
         // This is a EF bug
 
-        // builder.ComplexProperty(movie => movie.Director);
-
-        // Using this to avoid Complex Property when using TPT
-        builder.Ignore(movie => movie.Director);
+        builder.ComplexProperty(movie => movie.Director);
 
         // Overriding default
         // Changing names of generated columns
