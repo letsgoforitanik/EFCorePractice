@@ -19,9 +19,15 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
         */
 
         // TPT - Table Per Type
+        /*
         builder
             .UseTptMappingStrategy()
             .ComplexProperty(movie => movie.Director);
+        */
+
+        // TPC - Table Per Concrete Type
+        builder
+            .UseTpcMappingStrategy();
 
 
         // Global Query Filter
