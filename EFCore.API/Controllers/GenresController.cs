@@ -31,4 +31,17 @@ public class GenresController(MoviesDbContext db) : ControllerBase
         await db.SaveChangesAsync();
         return CreatedAtAction(nameof(GetGenre), new { id = genre.Id }, genre);
     }
+
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> UpdateGenre(int id, Genre genre)
+    {
+        var existingGenre = await db.Genres.FindAsync(id);
+
+        if (existingGenre is null) return NotFound();
+
+        existingGenre.Name = genre.Name;
+        await db.SaveChangesAsync();
+        return Ok(existingGenre);
+    }
+
 }

@@ -16,5 +16,6 @@ public class GenreMapping : IEntityTypeConfiguration<Genre>
 
         builder.Property(genre => genre.UpdatedAt)
             .HasDefaultValueSql("getdate()");
+
     }
 }

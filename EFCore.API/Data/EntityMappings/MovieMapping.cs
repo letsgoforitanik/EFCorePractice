@@ -3,7 +3,7 @@ using EFCore.API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace EFCore.API.Data.EntityMappings.cs;
+namespace EFCore.API.Data.EntityMappings;
 
 public class MovieMapping : IEntityTypeConfiguration<Movie>
 {
