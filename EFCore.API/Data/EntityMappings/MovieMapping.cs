@@ -9,6 +9,12 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
 {
     public void Configure(EntityTypeBuilder<Movie> builder)
     {
+        // TPH - Table Per Hierarchy
+        builder
+            .HasDiscriminator<string>("MovieType")
+            .HasValue<CinemaMovie>("Cinema")
+            .HasValue<TelevisionMovie>("Television");
+
         // Global Query Filter
         // In SQL, "WHERE [m].[IsSoftDeleted] = CAST(0 AS bit)"
         // gets added to the last of every SELECT query

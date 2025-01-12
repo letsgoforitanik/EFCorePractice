@@ -21,6 +21,20 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
         return Ok(movies);
     }
 
+    [HttpGet("cinema")]
+    public async Task<IActionResult> GetCinemaMovies()
+    {
+        var cinemaMovies = await db.Movies.OfType<CinemaMovie>().ToListAsync();
+        return Ok(cinemaMovies);
+    }
+
+    [HttpGet("television")]
+    public async Task<IActionResult> GetTelevisionMovies()
+    {
+        var televisionMovies = await db.Movies.OfType<TelevisionMovie>().ToListAsync();
+        return Ok(televisionMovies);
+    }
+
     [HttpGet("{id:int}")]
     public async Task<IActionResult> GetMovie(int id)
     {

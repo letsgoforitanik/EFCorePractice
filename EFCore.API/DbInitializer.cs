@@ -35,7 +35,7 @@ public static class DbInitializer
             var genres = db.Genres.ToList();
 
             db.Movies.AddRange(
-                new Movie
+                new CinemaMovie
                 {
                     Title = "Fight Club",
                     GenreId = genres[0].Id,
@@ -49,9 +49,10 @@ public static class DbInitializer
                         new() { FirstName = "Edward", LastName = "Norton" },
                         new() { FirstName = "Helena", LastName = "Bonham Carter" }
                     ],
-                    IsSoftDeleted = false
+                    IsSoftDeleted = false,
+                    GrossRevenue = 10
                 },
-                new Movie
+                new CinemaMovie
                 {
                     Title = "The Shawshank Redemption",
                     GenreId = genres[0].Id,
@@ -64,9 +65,10 @@ public static class DbInitializer
                         new() { FirstName = "Morgan", LastName = "Freeman" },
                         new() { FirstName = "Tim", LastName = "Robbins" }
                     ],
-                    IsSoftDeleted = true
+                    IsSoftDeleted = true,
+                    GrossRevenue = 20,
                 },
-                new Movie
+                new CinemaMovie
                 {
                     Title = "The Dark Knight",
                     GenreId = genres[1].Id,
@@ -79,9 +81,10 @@ public static class DbInitializer
                         new() { FirstName = "Christian", LastName = "Bale" },
                         new() { FirstName = "Heath", LastName = "Ledger" }
                     ],
-                    IsSoftDeleted = false
+                    IsSoftDeleted = false,
+                    GrossRevenue = 30,
                 },
-                new Movie
+                new CinemaMovie
                 {
                     Title = "Inception",
                     GenreId = genres[2].Id,
@@ -94,7 +97,24 @@ public static class DbInitializer
                         new() { FirstName = "Leonardo", LastName = "DiCaprio" },
                         new() { FirstName = "Cillian", LastName = "Murphy" }
                     ],
-                    IsSoftDeleted = false
+                    IsSoftDeleted = false,
+                    GrossRevenue = 40,
+                },
+                new TelevisionMovie
+                {
+                    Title = "Behind the Candelabra",
+                    GenreId = genres[0].Id,
+                    ReleaseDate = new DateTime(2013, 5, 26),
+                    Synopsis = "A chronicle of the tempestuous six-year romance between megastar singer Liberace and his young lover Scott Thorson",
+                    AgeRating = AgeRating.Adolescent,
+                    Director = new Person { FirstName = "Steven", LastName = "Soderbergh" },
+                    Actors =
+                    [
+                        new() { FirstName = "Michael", LastName = "Douglas" },
+                        new() { FirstName = "Matt", LastName = "Demon" }
+                    ],
+                    IsSoftDeleted = false,
+                    ChannelFirstAiredOn = "HBO"
                 }
             );
 

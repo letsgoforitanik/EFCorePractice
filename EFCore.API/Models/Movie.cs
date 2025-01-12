@@ -1,5 +1,10 @@
 namespace EFCore.API.Models;
 
+// EF Core Inheritance
+// TPH - Table Per Hierarchy
+// TPC - Table Per Concrete Type
+// TPT - Table Per Type 
+
 public class Movie
 {
     public int Id { get; set; }
