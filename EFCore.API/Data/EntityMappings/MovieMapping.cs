@@ -11,7 +11,7 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
     {
         // Global Query Filter
         // In SQL, "WHERE [m].[IsSoftDeleted] = CAST(0 AS bit)"
-        // gets added to every SELECT query
+        // gets added to the last of every SELECT query
         builder.HasQueryFilter(movie => movie.IsSoftDeleted == false);
 
         builder.Property(movie => movie.Title)
