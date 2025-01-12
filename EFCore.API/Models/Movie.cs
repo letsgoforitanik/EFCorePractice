@@ -21,4 +21,7 @@ public class Movie
     // Owned Type / Multi-valued Attribute / Weak Entity
     public ICollection<Person> Actors { get; set; } = default!;
 
+    // Soft deletion Property
+    public bool IsSoftDeleted { get; set; }
+
 }

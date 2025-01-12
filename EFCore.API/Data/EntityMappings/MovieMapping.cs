@@ -3,12 +3,16 @@ using EFCore.API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace EFCore.API.Data.EntityMappings.cs;
+namespace EFCore.API.Data.EntityMappings;
 
 public class MovieMapping : IEntityTypeConfiguration<Movie>
 {
     public void Configure(EntityTypeBuilder<Movie> builder)
     {
+        // Global Query Filter
+        // In SQL, "WHERE [m].[IsSoftDeleted] = CAST(0 AS bit)"
+        // gets added to every SELECT query
+        builder.HasQueryFilter(movie => movie.IsSoftDeleted == false);
 
         builder.Property(movie => movie.Title)
             .HasColumnType("varchar")

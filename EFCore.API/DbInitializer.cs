@@ -48,7 +48,8 @@ public static class DbInitializer
                         new() { FirstName = "Brad", LastName = "Pitt" },
                         new() { FirstName = "Edward", LastName = "Norton" },
                         new() { FirstName = "Helena", LastName = "Bonham Carter" }
-                    ]
+                    ],
+                    IsSoftDeleted = false
                 },
                 new Movie
                 {
@@ -62,7 +63,8 @@ public static class DbInitializer
                     [
                         new() { FirstName = "Morgan", LastName = "Freeman" },
                         new() { FirstName = "Tim", LastName = "Robbins" }
-                    ]
+                    ],
+                    IsSoftDeleted = true
                 },
                 new Movie
                 {
@@ -76,7 +78,8 @@ public static class DbInitializer
                     [
                         new() { FirstName = "Christian", LastName = "Bale" },
                         new() { FirstName = "Heath", LastName = "Ledger" }
-                    ]
+                    ],
+                    IsSoftDeleted = false
                 },
                 new Movie
                 {
@@ -90,7 +93,8 @@ public static class DbInitializer
                     [
                         new() { FirstName = "Leonardo", LastName = "DiCaprio" },
                         new() { FirstName = "Cillian", LastName = "Murphy" }
-                    ]
+                    ],
+                    IsSoftDeleted = false
                 }
             );
 
