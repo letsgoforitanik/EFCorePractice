@@ -17,7 +17,7 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
         // Get all movies
 
         // Eager Loading of Genre
-        var movies = await db.Movies.Include(movie => movie.Genre).ToListAsync();
+        var movies = await db.Movies.ToListAsync();
         return Ok(movies);
     }
 
@@ -144,7 +144,7 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
         */
 
         // What if GenreId is present in Movie
-        var newMovie = new Movie
+        var newMovie = new CinemaMovie
         {
             Title = dto.Title,
             ReleaseDate = dto.ReleaseDate,
