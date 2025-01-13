@@ -36,9 +36,5 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
         builder
             .ComplexProperty(movie => movie.Director);
 
-        builder
-            .OwnsMany(movie => movie.Actors)
-            .ToTable("MovieActors");
-
     }
 }
