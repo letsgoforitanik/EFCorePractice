@@ -8,6 +8,9 @@ public class GenreMapping : IEntityTypeConfiguration<Genre>
 {
     public void Configure(EntityTypeBuilder<Genre> builder)
     {
+        // Add unique key Genre.Name
+        builder.HasAlternateKey(genre => genre.Name);
+
         builder.Property(genre => genre.Name)
             .HasDefaultValue("NA");
 
