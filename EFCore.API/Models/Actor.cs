@@ -8,4 +8,7 @@ public class Actor
 
     // Navigation Properties for Movie
     public ICollection<Movie>? Movies { get; set; }
+
+    // Nav
+    public ICollection<ActorMovie>? Roles { get; set; }
 }
