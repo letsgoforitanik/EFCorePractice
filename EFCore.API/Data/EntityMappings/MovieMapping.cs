@@ -16,8 +16,6 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
             .UseTpcMappingStrategy()
             .HasQueryFilter(movie => movie.IsSoftDeleted == false);
 
-        //builder.ComplexProperty(movie => movie.Director);
-
         builder.Property(movie => movie.Title)
             .HasColumnType("varchar")
             .HasMaxLength(128)

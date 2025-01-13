@@ -10,11 +10,11 @@ public class MoviesDbContext(DbContextOptions<MoviesDbContext> options) : DbCont
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-        // TPT - Table Per Type Mapping Strategy
-        /*
-        modelBuilder.Entity<CinemaMovie>();
-        modelBuilder.Entity<TelevisionMovie>();
-        */
+        modelBuilder.Entity<CinemaMovie>()
+            .ToTable("CinemaMovies");
+
+        modelBuilder.Entity<TelevisionMovie>()
+            .ToTable("TelevisionMovies");
 
         base.OnModelCreating(modelBuilder);
     }
