@@ -10,6 +10,8 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
     public void Configure(EntityTypeBuilder<Movie> builder)
     {
 
+        builder.HasKey(movie => new { movie.Title, movie.ReleaseDate });
+
         builder.Property(movie => movie.Title)
             .HasColumnType("varchar")
             .HasMaxLength(128)
