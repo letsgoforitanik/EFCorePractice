@@ -38,9 +38,9 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
             .OwnsMany(movie => movie.Actors)
             .ToTable("MovieActors");
 
-        // One-to-One modelling as complex property
+        // One-to-One modelling as owned types
         builder
-            .ComplexProperty(movie => movie.ExternalInformation);
+            .OwnsOne(movie => movie.ExternalInformation);
 
     }
 }
