@@ -21,4 +21,7 @@ public class Movie
     // Owned Type / Multi-valued Attribute / Weak Entity
     public ICollection<Person> Actors { get; set; } = default!;
 
+    // One-to-One modelling as complex property
+    public ExternalInformation ExternalInformation { get; set; } = default!;
+
 }
