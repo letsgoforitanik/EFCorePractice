@@ -24,7 +24,8 @@ public static class DbInitializer
             db.Genres.AddRange(
                 new Genre { Name = "Drama" },
                 new Genre { Name = "Action" },
-                new Genre { Name = "Sci-Fi" }
+                new Genre { Name = "Sci-Fi" },
+                new Genre { Name = "Romance" }
             );
 
             db.SaveChanges();

@@ -44,4 +44,20 @@ public class GenresController(MoviesDbContext db) : ControllerBase
         return Ok(existingGenre);
     }
 
+    [HttpGet("by-query")]
+    public async Task<IActionResult> GetGenresByQuery()
+    {
+        int minGenreId = 2;
+        var genres = await db.Genres.FromSql($"SELECT * FROM [dbo].[Genres] WHERE Id >= {minGenreId}").ToListAsync();
+        return Ok(genres);
+    }
+
+    [HttpGet("by-query-raw")]
+    public async Task<IActionResult> GetGenresByQueryRaw()
+    {
+        int minGenreId = 2;
+        var genres = await db.Genres.FromSqlRaw($"SELECT * FROM [dbo].[Genres] WHERE Id >= {0}", minGenreId).ToListAsync();
+        return Ok(genres);
+    }
+
 }
