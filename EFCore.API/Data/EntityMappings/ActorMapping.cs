@@ -10,6 +10,7 @@ public class ActorMapping : IEntityTypeConfiguration<Actor>
     {
         builder
             .HasMany(actor => actor.Movies)
-            .WithMany(movie => movie.Actors);
+            .WithMany(movie => movie.Actors)
+            .UsingEntity("ActorsMovies");
     }
 }
