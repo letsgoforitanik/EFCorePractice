@@ -45,9 +45,21 @@ public static class DbInitializer
                     Director = new() { FirstName = "David", LastName = "Fincher" },
                     Actors =
                     [
-                         new() { FirstName = "Brad", LastName = "Pitt" },
-                         new() { FirstName = "Edward", LastName = "Norton" },
-                         new() { FirstName = "Helena", LastName = "Bonham Carter" }
+                        new()
+                        {
+                            Actor = new() { FirstName = "Brad", LastName = "Pitt" },
+                            Role = "Tyler Durden"
+                        },
+                        new()
+                        {
+                            Actor = new() { FirstName = "Edward", LastName = "Norton" },
+                            Role = "The Narrator"
+                        },
+                        new()
+                        {
+                            Actor = new() { FirstName = "Helena", LastName = "Bonham Carter" },
+                            Role = "Marla Singer"
+                        }
                     ],
                     ExternalInformation = new()
                     {
@@ -66,8 +78,16 @@ public static class DbInitializer
                     Director = new() { FirstName = "Frank", LastName = "Darabont" },
                     Actors =
                     [
-                        new() { FirstName = "Morgan", LastName = "Freeman" },
-                        new() { FirstName = "Tim", LastName = "Robbins" }
+                        new()
+                        {
+                            Actor = new() { FirstName = "Morgan", LastName = "Freeman" },
+                            Role = "Ellis Boyd Redding"
+                        },
+                        new()
+                        {
+                            Actor = new() { FirstName = "Tim", LastName = "Robbins" },
+                            Role = "Andy Dufresne"
+                        }
                     ],
                     ExternalInformation = new()
                     {
@@ -86,8 +106,16 @@ public static class DbInitializer
                     Director = new() { FirstName = "Christopher", LastName = "Nolan" },
                     Actors =
                     [
-                        new() { FirstName = "Christian", LastName = "Bale" },
-                        new() { FirstName = "Heath", LastName = "Ledger" }
+                        new()
+                        {
+                            Actor = new() { FirstName = "Christian", LastName = "Bale" },
+                            Role = "Batman"
+                        },
+                        new()
+                        {
+                            Actor = new() { FirstName = "Heath", LastName = "Ledger" },
+                            Role = "Joker"
+                        }
                     ],
                     ExternalInformation = new()
                     {
@@ -106,8 +134,16 @@ public static class DbInitializer
                     Director = new() { FirstName = "Christopher", LastName = "Nolan" },
                     Actors =
                     [
-                        new() { FirstName = "Leonardo", LastName = "DiCaprio" },
-                        new() { FirstName = "Cillian", LastName = "Murphy" }
+                        new()
+                        {
+                            Actor = new() { FirstName = "Leonardo", LastName = "DiCaprio" },
+                            Role = "Cobb"
+                        },
+                        new()
+                        {
+                            Actor = new() { FirstName = "Cillian", LastName = "Murphy" },
+                            Role = "Fischer"
+                        }
                     ],
                     ExternalInformation = new()
                     {

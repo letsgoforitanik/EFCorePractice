@@ -16,6 +16,6 @@ public class Movie
     public ExternalInformation ExternalInformation { get; set; } = default!;
 
     // Navigation Properties for Actor
-    public ICollection<Actor>? Actors { get; set; }
+    public ICollection<ActorMovie>? Actors { get; set; }
 
 }

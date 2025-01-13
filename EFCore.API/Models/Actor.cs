@@ -6,9 +6,7 @@ public class Actor
     public string FirstName { get; set; } = default!;
     public string LastName { get; set; } = default!;
 
-    // Navigation Properties for Movie
-    public ICollection<Movie>? Movies { get; set; }
+    // Navigation Property
+    public ICollection<ActorMovie>? Movies { get; set; }
 
-    // Nav
-    public ICollection<ActorMovie>? Roles { get; set; }
 }
