@@ -10,7 +10,9 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
     public void Configure(EntityTypeBuilder<Movie> builder)
     {
 
-        builder.HasKey(movie => new { movie.Title, movie.ReleaseDate });
+        builder.HasKey(movie => movie.Id);
+
+        builder.HasAlternateKey(movie => new { movie.Title, movie.ReleaseDate });
 
         builder.Property(movie => movie.Title)
             .HasColumnType("varchar")
@@ -37,10 +39,6 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
         builder
             .OwnsMany(movie => movie.Actors)
             .ToTable("MovieActors");
-
-        // One-to-One modelling as owned types
-        builder
-            .OwnsOne(movie => movie.ExternalInformation);
 
     }
 }
