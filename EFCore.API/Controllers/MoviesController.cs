@@ -281,6 +281,31 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
         return Ok(result);
 
     }
+
+    [HttpGet("with-actors/brad")]
+    public async Task<IActionResult> GetMoviesWithActorBradPitt()
+    {
+
+        var query = db.Database.SqlQuery<Result>(@$"SELECT 
+                        m.Id as MovieId, 
+                        m.Title as MovieTitle, 
+                        m.ReleaseDate as MovieReleaseDate, 
+                        a.Id as ActorId, 
+                        a.FirstName as ActorFirstName, 
+                        a.LastName as ActorLastName, 
+                        am.Role as ActorRole 
+                        FROM [dbo].[Movies] AS m
+                        JOIN [dbo].[ActorsMovies] AS am ON m.Id = am.MovieId
+                        JOIN [dbo].[Actors] AS a ON a.Id = am.ActorId"
+                    );
+
+        var result = await query.Where(q => q.ActorFirstName == "Brad" && q.ActorLastName == "Pitt").ToListAsync();
+        return Ok(result);
+
+
+    }
+
+
 }
 
 class Result
