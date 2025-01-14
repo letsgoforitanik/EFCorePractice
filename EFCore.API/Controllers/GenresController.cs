@@ -54,6 +54,20 @@ public class GenresController(MoviesDbContext db) : ControllerBase
         return Ok(existingGenre);
     }
 
+    [HttpPut("batch")]
+    public async Task<IActionResult> BatchUpdateGenres(List<Genre> genres)
+    {
+        var existingGenres = await db.Genres.Where(genre => genres.Contains(genre)).ToListAsync();
+
+        foreach (var genre in existingGenres)
+        {
+            genre.Name = genres.FirstOrDefault(g => g.Id == genre.Id)?.Name ?? genre.Name;
+        }
+
+        await db.SaveChangesAsync();
+        return NoContent();
+    }
+
     [HttpGet("by-query")]
     public async Task<IActionResult> GetGenresByQuery()
     {
