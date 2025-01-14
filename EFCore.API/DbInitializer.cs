@@ -155,6 +155,14 @@ public static class DbInitializer
                 }
             );
 
+            db.Actors.Add(
+                new Actor
+                {
+                    FirstName = "Keanu",
+                    LastName = "Reeves",
+                }
+            );
+
             db.SaveChanges();
         }
 
