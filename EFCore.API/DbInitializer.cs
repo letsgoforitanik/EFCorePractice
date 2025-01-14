@@ -1,5 +1,6 @@
 using EFCore.API.Data;
 using EFCore.API.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EFCore.API;
 
@@ -156,6 +157,14 @@ public static class DbInitializer
             );
 
             db.SaveChanges();
+
+            db.Database.ExecuteSql(@$"CREATE PROCEDURE GetAllMovieTitles
+                                    AS
+                                    BEGIN
+                                        SELECT Title FROM [dbo].[Movies];
+                                    END");
+
+
         }
 
     }

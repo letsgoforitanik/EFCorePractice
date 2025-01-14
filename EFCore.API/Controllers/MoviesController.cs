@@ -312,6 +312,13 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
         return Ok(movies);
     }
 
+    [HttpGet("titles")]
+    public IActionResult GetMovieTitles()
+    {
+        var titles = db.MovieTitles.ToList();
+        return Ok(titles);
+    }
+
 
 }
 

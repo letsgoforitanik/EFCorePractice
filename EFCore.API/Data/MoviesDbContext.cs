@@ -9,6 +9,11 @@ public class MoviesDbContext(DbContextOptions<MoviesDbContext> options) : DbCont
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        modelBuilder.Entity<MovieTitle>()
+            .HasNoKey()
+            .ToSqlQuery("EXEC [dbo].[GetAllMovieTitles]");
+
         base.OnModelCreating(modelBuilder);
     }
 
@@ -39,5 +44,6 @@ public class MoviesDbContext(DbContextOptions<MoviesDbContext> options) : DbCont
     public required DbSet<Genre> Genres { get; init; }
     public required DbSet<Actor> Actors { get; init; }
     public required DbSet<ActorMovie> ActorsMovies { get; init; }
+    public required DbSet<MovieTitle> MovieTitles { get; init; }
 
 }
