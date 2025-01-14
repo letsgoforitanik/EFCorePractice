@@ -165,6 +165,11 @@ public static class DbInitializer
                                     END");
 
 
+            db.Database.ExecuteSql(@$"CREATE VIEW GenreNames
+                                    AS
+                                    SELECT Name FROM Genres");
+
+
         }
 
     }

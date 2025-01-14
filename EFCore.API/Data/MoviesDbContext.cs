@@ -14,6 +14,10 @@ public class MoviesDbContext(DbContextOptions<MoviesDbContext> options) : DbCont
             .HasNoKey()
             .ToSqlQuery("EXEC [dbo].[GetAllMovieTitles]");
 
+        modelBuilder.Entity<GenreName>()
+            .HasNoKey()
+            .ToView("GenreNames");
+
         base.OnModelCreating(modelBuilder);
     }
 
@@ -45,5 +49,6 @@ public class MoviesDbContext(DbContextOptions<MoviesDbContext> options) : DbCont
     public required DbSet<Actor> Actors { get; init; }
     public required DbSet<ActorMovie> ActorsMovies { get; init; }
     public required DbSet<MovieTitle> MovieTitles { get; init; }
+    public required DbSet<GenreName> GenreNames { get; init; }
 
 }

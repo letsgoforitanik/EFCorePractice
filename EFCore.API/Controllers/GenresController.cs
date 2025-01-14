@@ -70,4 +70,11 @@ public class GenresController(MoviesDbContext db) : ControllerBase
         return Ok(genres);
     }
 
+    [HttpGet("names")]
+    public async Task<IActionResult> GetAllGenreNames()
+    {
+        var genreNames = await db.GenreNames.ToListAsync();
+        return Ok(genreNames);
+    }
+
 }
