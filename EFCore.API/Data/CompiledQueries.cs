@@ -3,6 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EFCore.API.Data;
 
+// With compiled queries
+// EF doesn't need to parse the LINQ query
+// every time. Instead it just parses the
+// query only the first time
+
 public static class CompiledQueries
 {
     private static readonly Func<MoviesDbContext, AgeRating, IEnumerable<Movie>> getMoviesByAgeRatingQuery
