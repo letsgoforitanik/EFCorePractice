@@ -27,9 +27,19 @@ public class GenresController(MoviesDbContext db) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateGenre(Genre genre)
     {
+        /*
         await db.Genres.AddAsync(genre);
         await db.SaveChangesAsync();
         return CreatedAtAction(nameof(GetGenre), new { id = genre.Id }, genre);
+        */
+
+        /*
+        await db.Database.ExecuteSqlRawAsync("INSERT INTO [dbo].[Genres] (Name) VALUES ({0})", genre.Name);
+        return Created();
+        */
+
+        await db.Database.ExecuteSqlAsync($"INSERT INTO [dbo].[Genres] (Name) VALUES ({genre.Name})");
+        return Created();
     }
 
     [HttpPut("{id:int}")]
@@ -56,7 +66,7 @@ public class GenresController(MoviesDbContext db) : ControllerBase
     public async Task<IActionResult> GetGenresByQueryRaw()
     {
         int minGenreId = 2;
-        var genres = await db.Genres.FromSqlRaw($"SELECT * FROM [dbo].[Genres] WHERE Id >= {0}", minGenreId).ToListAsync();
+        var genres = await db.Genres.FromSqlRaw("SELECT * FROM [dbo].[Genres] WHERE Id >= @p0", minGenreId).ToListAsync();
         return Ok(genres);
     }
 
