@@ -74,7 +74,8 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
     [HttpGet("by-age/{ageRating}")]
     public async Task<IActionResult> GetMoviesByAgeRating(AgeRating ageRating)
     {
-        var movies = await db.Movies.Where(movie => movie.AgeRating <= ageRating).ToListAsync();
+        var compiledQuery = CompiledQueries.FetchGetMoviesByAgeRatingQuery();
+        var movies = await Task.Run(() => compiledQuery.Invoke(db, ageRating).ToList());
         return Ok(movies);
     }
 
