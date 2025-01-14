@@ -20,5 +20,18 @@ public class GenreMapping : IEntityTypeConfiguration<Genre>
         builder.Property(genre => genre.UpdatedAt)
             .HasDefaultValueSql("getdate()");
 
+        // Shadow Property
+        // This doesn't exist on model but will
+        // exist in database table 'Genre'
+        // Used to implement soft delete
+        builder.Property<bool>("IsDeleted")
+            .HasDefaultValue(false);
+
+        // Query filter that uses Shadow Property
+        // 'IsDeleted' to show only the records
+        // that haven't been soft deleted
+        builder
+            .HasQueryFilter(genre => EF.Property<bool>(genre, "IsDeleted") == false);
+
     }
 }
