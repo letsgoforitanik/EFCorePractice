@@ -305,6 +305,13 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
 
     }
 
+    [HttpGet("by-proc")]
+    public async Task<IActionResult> GetAllMoviesByProcedure()
+    {
+        var movies = await db.Movies.FromSql($"EXEC [dbo].[GetAllMovies]").ToListAsync();
+        return Ok(movies);
+    }
+
 
 }
 
