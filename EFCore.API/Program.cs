@@ -13,7 +13,14 @@ mvcBuilder.AddJsonOptions(opt =>
     opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
-builder.Services.AddDbContext<MoviesDbContext>(opt => opt.UseSqlServer(builder.Configuration["DbConnectionString"]));
+// Increase batch size so that
+// EF makes less roundtrip to database
+builder.Services.AddDbContext<MoviesDbContext>(opt =>
+    opt.UseSqlServer(
+        builder.Configuration["DbConnectionString"],
+        builder => builder.MaxBatchSize(100)
+    )
+);
 
 var app = builder.Build();
 
