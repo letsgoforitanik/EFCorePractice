@@ -77,4 +77,16 @@ public class GenresController(MoviesDbContext db) : ControllerBase
         return Ok(genreNames);
     }
 
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteGenre(int id)
+    {
+        var genre = await db.Genres.FindAsync(id);
+
+        if (genre is null) return NotFound();
+
+        db.Genres.Remove(genre);
+        await db.SaveChangesAsync();
+        return NoContent();
+    }
+
 }

@@ -1,4 +1,5 @@
 using System.Reflection;
+using EFCore.API.Data.Interceptors;
 using EFCore.API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,6 +7,12 @@ namespace EFCore.API.Data;
 
 public class MoviesDbContext(DbContextOptions<MoviesDbContext> options) : DbContext(options)
 {
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.AddInterceptors(new SaveChangesInterceptor());
+        base.OnConfiguring(optionsBuilder);
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
@@ -31,6 +38,7 @@ public class MoviesDbContext(DbContextOptions<MoviesDbContext> options) : DbCont
             if (entry.State == EntityState.Modified) entry.Entity.UpdatedAt = DateTime.UtcNow;
         }
     }
+
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
