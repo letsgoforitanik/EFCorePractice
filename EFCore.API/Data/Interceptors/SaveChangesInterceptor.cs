@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace EFCore.API.Data.Interceptors;
 
+// While using interceptors
+// We don't need to override SaveChanges()
+// to insert custom logic
 public class SaveChangesInterceptor : ISaveChangesInterceptor
 {
     public InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
