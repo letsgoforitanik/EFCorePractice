@@ -49,7 +49,8 @@ public class GenresController(MoviesDbContext db) : ControllerBase
 
         if (existingGenre is null) return NotFound();
 
-        existingGenre.Name = genre.Name;
+        existingGenre.Description = genre.Description;
+
         await db.SaveChangesAsync();
         return Ok(existingGenre);
     }

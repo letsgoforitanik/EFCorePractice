@@ -4,6 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EFCore.API.Data.EntityMappings;
 
+// Optimistic Locking assumes that conflicts rarely occur
+// When data is fetched it fetches the ConcurrencyToken
+// When date is about to be updated, the current 
+// concurrency token is compared with the fetched token
+// and the update only takes place if both versions are 
+// same.
+
 public class GenreMapping : IEntityTypeConfiguration<Genre>
 {
     public void Configure(EntityTypeBuilder<Genre> builder)
@@ -32,6 +39,11 @@ public class GenreMapping : IEntityTypeConfiguration<Genre>
         // that haven't been soft deleted
         builder
             .HasQueryFilter(genre => EF.Property<bool>(genre, "IsDeleted") == false);
+
+        // Optimistic Locking
+        // Using RowVersion
+        builder.Property(movie => movie.ConcurrencyToken)
+            .IsRowVersion();
 
     }
 }

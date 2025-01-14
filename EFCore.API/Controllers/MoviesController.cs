@@ -30,7 +30,6 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
 
         // Explicit Loading of Genre + Actors
         // More roundtrips than Eager Loading 
-
         var movies = await db.Movies.ToListAsync();
 
         foreach (var movie in movies)
