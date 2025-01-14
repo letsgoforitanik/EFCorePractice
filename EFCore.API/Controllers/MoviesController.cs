@@ -264,6 +264,7 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
     public async Task<IActionResult> GetMoviesWithActors()
     {
 
+        /*
         var query = db.Database.SqlQuery<Result>(@$"SELECT 
                         m.Id as MovieId, 
                         m.Title as MovieTitle, 
@@ -278,6 +279,13 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
                     );
 
         var result = await query.ToListAsync();
+        return Ok(result);
+        */
+
+        var joinQuery = db.Movies.Join(db.ActorsMovies, movie => movie.Id, am => am.MovieId, (movie, am) => new { Movie = movie, ActorMovie = am });
+        var second = db.Actors.Join(joinQuery, actor => actor.Id, query => query.ActorMovie.ActorId, (actor, query) => new { query.Movie, Actor = actor, query.ActorMovie });
+
+        var result = await second.ToListAsync();
         return Ok(result);
 
     }
