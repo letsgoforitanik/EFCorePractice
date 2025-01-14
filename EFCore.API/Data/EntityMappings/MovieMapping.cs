@@ -10,9 +10,20 @@ public class MovieMapping : IEntityTypeConfiguration<Movie>
     public void Configure(EntityTypeBuilder<Movie> builder)
     {
 
-        builder.HasKey(movie => movie.Id);
+        builder
+            .HasKey(movie => movie.Id)
+            .IsClustered(false);
 
-        builder.HasAlternateKey(movie => new { movie.Title, movie.ReleaseDate });
+        builder
+            .HasAlternateKey(movie => new { movie.Title, movie.ReleaseDate })
+            .IsClustered(true);
+
+        // Creates non-unique, non-clustered index
+        // IX_Movies_ReleaseDate in the database
+        builder
+            .HasIndex(movie => movie.ReleaseDate)
+            .IsClustered(false)
+            .IsDescending();
 
         builder.Property(movie => movie.Title)
             .HasColumnType("varchar")
