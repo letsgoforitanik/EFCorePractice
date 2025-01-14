@@ -259,4 +259,37 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
         await db.Movies.Where(movie => movie.Id == id).ExecuteDeleteAsync();
         return NoContent();
     }
+
+    [HttpGet("with-actors")]
+    public async Task<IActionResult> GetMoviesWithActors()
+    {
+
+        var query = db.Database.SqlQuery<Result>(@$"SELECT 
+                        m.Id as MovieId, 
+                        m.Title as MovieTitle, 
+                        m.ReleaseDate as MovieReleaseDate, 
+                        a.Id as ActorId, 
+                        a.FirstName as ActorFirstName, 
+                        a.LastName as ActorLastName, 
+                        am.Role as ActorRole 
+                        FROM [dbo].[Movies] AS m
+                        JOIN [dbo].[ActorsMovies] AS am ON m.Id = am.MovieId
+                        JOIN [dbo].[Actors] AS a ON a.Id = am.ActorId"
+                    );
+
+        var result = await query.ToListAsync();
+        return Ok(result);
+
+    }
+}
+
+class Result
+{
+    public int MovieId { get; set; }
+    public string? MovieTitle { get; set; }
+    public string? MovieReleaseDate { get; set; }
+    public int ActorId { get; set; }
+    public string? ActorFirstName { get; set; }
+    public string? ActorLastName { get; set; }
+    public string? ActorRole { get; set; }
 }
