@@ -16,14 +16,35 @@ public class MoviesController(MoviesDbContext db) : ControllerBase
     {
         // Get all movies
 
-        // Eager Loading of Genre
-
         // By using 'AsNoTracking' we are instructing Changetracker to not track
         // the returned objects. Since we are just returning the result and 
         // not modifiying them, tracking them makes no sense and only adds performance
         // penalty.
+
+        // Eager Loading of Genre
+
+        /*
         var movies = await db.Movies.Include(movie => movie.Genre).AsNoTracking().ToListAsync();
         return Ok(movies);
+        */
+
+        // Explicit Loading of Genre + Actors
+        // More roundtrips than Eager Loading 
+
+        var movies = await db.Movies.ToListAsync();
+
+        foreach (var movie in movies)
+        {
+            // Explicitly loading Genre
+            await db.Entry(movie).Reference(movie => movie.Genre).LoadAsync();
+
+            // Explicitly loading Actors
+            await db.Entry(movie).Collection(movie => movie.Actors!).LoadAsync();
+
+        }
+
+        return Ok(movies);
+
     }
 
     [HttpGet("{id:int}")]
